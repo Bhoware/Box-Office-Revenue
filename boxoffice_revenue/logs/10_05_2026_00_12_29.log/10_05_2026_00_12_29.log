@@ -1,0 +1,8 @@
+[ 2026-10-05 00:12:30,735 ] 12 root - INFO - The execution has started
+[ 2026-10-05 00:12:30,759 ] 27 root - INFO - Reading completed
+[ 2026-10-05 00:12:30,793 ] 36 root - INFO - Data Ingestion is completed
+[ 2026-10-05 00:12:30,797 ] 60 root - INFO - read train and test data
+[ 2026-10-05 00:12:30,797 ] 61 root - INFO - Obtaining preprocessing object
+[ 2026-10-05 00:12:30,797 ] 44 root - INFO - numerical_column:['budget', 'domestic_revenue', 'opening_theaters', 'release_days']
+[ 2026-10-05 00:12:30,797 ] 45 root - INFO - categorical_column:['genres', 'title', 'distributor', 'MPAA']
+[ 2026-10-05 00:12:30,798 ] 31 root - INFO - Custom Exception

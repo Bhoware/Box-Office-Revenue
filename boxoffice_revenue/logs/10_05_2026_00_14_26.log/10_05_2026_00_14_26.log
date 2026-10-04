@@ -1,0 +1,2 @@
+[ 2026-10-05 00:14:28,500 ] 44 root - INFO - numerical_column:['budget', 'domestic_revenue', 'opening_theaters', 'release_days']
+[ 2026-10-05 00:14:28,501 ] 45 root - INFO - categorical_column:['genres', 'title', 'distributor', 'MPAA']
