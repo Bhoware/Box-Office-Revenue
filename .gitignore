@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# Environments
+venv/
+.venv/
+env/
+.env
+
+# Logs and runtime artifacts
+logs/
+*.log
+artifacts/
+*.pkl
+
+# Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Distribution / build
+build/
+dist/
+*.egg-info/
+
+# IDE files
+.vscode/
+.idea/
