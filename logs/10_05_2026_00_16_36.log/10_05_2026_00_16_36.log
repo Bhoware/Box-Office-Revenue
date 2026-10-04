@@ -1,9 +1,0 @@
-[ 2026-10-05 00:16:37,512 ] 12 root - INFO - The execution has started
-[ 2026-10-05 00:16:37,520 ] 30 root - INFO - Reading completed
-[ 2026-10-05 00:16:37,544 ] 39 root - INFO - Data Ingestion is completed
-[ 2026-10-05 00:16:37,552 ] 60 root - INFO - read train and test data
-[ 2026-10-05 00:16:37,552 ] 61 root - INFO - Obtaining preprocessing object
-[ 2026-10-05 00:16:37,552 ] 44 root - INFO - numerical_column:['budget', 'opening_theaters', 'release_days']
-[ 2026-10-05 00:16:37,552 ] 45 root - INFO - categorical_column:['genres', 'title', 'distributor', 'MPAA']
-[ 2026-10-05 00:16:37,553 ] 72 root - INFO - Applying preprocessing object on training and testing data
-[ 2026-10-05 00:16:37,567 ] 85 root - INFO - saved preprocessing object.
