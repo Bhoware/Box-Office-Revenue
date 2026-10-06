@@ -1,68 +1,320 @@
+```html
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Box Office Revenue Predictor</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: sans-serif;
-      max-width: 480px;
-      margin: 40px auto;
+      font-family: Inter, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 15px;
+      color: #e5e7eb;
+
+      background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.14), transparent 35%),
+        #09090b;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 620px;
+    }
+
+    .card {
+      background: rgba(24, 24, 27, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 24px;
+      padding: 38px;
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(18px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 18px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 27px;
+
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #a1a1aa;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    form {
+      display: grid;
+      gap: 19px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     label {
-      display: block;
-      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #d4d4d8;
     }
 
     input,
     select {
       width: 100%;
-      padding: 6px;
+      height: 46px;
+      padding: 0 14px;
+
+      border: 1px solid #3f3f46;
+      border-radius: 11px;
+
+      background: #18181b;
+      color: #f4f4f5;
+
+      font-size: 14px;
+      outline: none;
+
+      transition: 0.2s ease;
+    }
+
+    input::placeholder {
+      color: #71717a;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.13);
+      background: #1c1c20;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     button {
-      margin-top: 16px;
-      padding: 8px 16px;
+      width: 100%;
+      height: 50px;
+      margin-top: 7px;
+
+      border: none;
+      border-radius: 12px;
+
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+
+      cursor: pointer;
+
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(99, 102, 241, 0.35);
+    }
+
+    button:active {
+      transform: translateY(0);
     }
 
     .result {
-      margin-top: 20px;
-      font-size: 1.3em;
-      font-weight: bold;
+      margin-top: 28px;
+      padding: 20px;
+
+      border-radius: 14px;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+
+      background: rgba(99, 102, 241, 0.08);
+
+      text-align: center;
+      font-size: 17px;
+      font-weight: 700;
+      color: #c4b5fd;
+    }
+
+    .result::before {
+      content: "Prediction Result";
+      display: block;
+      margin-bottom: 7px;
+
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: #8b5cf6;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 22px;
+      color: #52525b;
+      font-size: 11px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 28px 20px;
+        border-radius: 20px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+        gap: 19px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h2>Domestic Revenue Predictor</h2>
-  <form method="post">
-    <label>Title <input name="title" required></label>
-    <label>Genre <input name="genres" placeholder="Action, Drama, Comedy..." required></label>
-    <label>Distributor
-      <select name="distributor">
-        <option>Warner Bros.</option>
-        <option>Disney</option>
-        <option>Sony</option>
-        <option>Universal</option>
-        <option>Paramount</option>
-      </select>
-    </label>
-    <label>MPAA rating
-      <select name="MPAA">
-        <option>G</option>
-        <option>PG</option>
-        <option>PG-13</option>
-        <option>R</option>
-        <option>NC-17</option>
-      </select>
-    </label>
-    <label>Budget ($) <input name="budget" type="number" required></label>
-    <label>Opening theaters <input name="opening_theaters" type="number" required></label>
-    <label>Release days <input name="release_days" type="number" required></label>
-    <button type="submit">Predict</button>
-  </form>
-  {% if result %}<div class="result">Predicted domestic revenue: {{ result }}</div>{% endif %}
+
+  <div class="container">
+
+    <div class="card">
+
+      <div class="header">
+        <div class="icon">🎬</div>
+
+        <h2>Domestic Revenue Predictor</h2>
+
+        <p class="subtitle">
+          Enter movie details to estimate its domestic box office revenue.
+        </p>
+      </div>
+
+      <form method="post">
+
+        <div class="field">
+          <label>Movie Title</label>
+          <input name="title" placeholder="Enter movie title" required>
+        </div>
+
+        <div class="field">
+          <label>Genre</label>
+          <input name="genres" placeholder="Action, Drama, Comedy..." required>
+        </div>
+
+        <div class="row">
+
+          <div class="field">
+            <label>Distributor</label>
+
+            <select name="distributor">
+              <option>Warner Bros.</option>
+              <option>Disney</option>
+              <option>Sony</option>
+              <option>Universal</option>
+              <option>Paramount</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>MPAA Rating</label>
+
+            <select name="MPAA">
+              <option>G</option>
+              <option>PG</option>
+              <option>PG-13</option>
+              <option>R</option>
+              <option>NC-17</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="field">
+            <label>Budget ($)</label>
+            <input name="budget" type="number" placeholder="e.g. 150000000" required>
+          </div>
+
+          <div class="field">
+            <label>Opening Theaters</label>
+            <input name="opening_theaters" type="number" placeholder="e.g. 3500" required>
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label>Release Days</label>
+          <input name="release_days" type="number" placeholder="e.g. 90" required>
+        </div>
+
+        <button type="submit">
+          Predict Revenue
+        </button>
+
+      </form>
+
+      {% if result %}
+      <div class="result">
+        Predicted domestic revenue: {{ result }}
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="footer">
+      Box Office Revenue Prediction System
+    </div>
+
+  </div>
+
 </body>
 
 </html>
+```
