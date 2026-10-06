@@ -1,49 +1,53 @@
 import os
+import pickle
 import sys
+from math import prod
+
+from sklearn.metrics import r2_score
+from sklearn.model_selection import RandomizedSearchCV
+
 from boxoffice_revenue.exception import CustomException
 from boxoffice_revenue.logger import logging
-import pandas as pd
-from dotenv import load_dotenv
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import r2_score
-import pymysql
-
-import pickle
-import numpy as np
-
-load_dotenv()
-
-host=os.getenv("host")
-user=os.getenv("user")
-password=os.getenv("password")
-db=os.getenv('db')
 
 
-
-def read_sql_data():
-    logging.info("Reading SQL database started")
+def evaluate_models(X_train, y_train, X_test, y_test, models_and_params):
     try:
-        mydb=pymysql.connect(
-            host=host,
-            user=user,
-            password=password,
-            db=db
-        )
-        logging.info("Connection Established",mydb)
-        df=pd.read_sql_query('Select * from students',mydb)
-        print(df.head())
+        report = {}
+        fitted = {}
 
-        return df
+        for name, cfg in models_and_params.items():
+            logging.info(f"Tuning {name}...")
+
+            grid_size = prod(len(v) for v in cfg["params"].values())
+            search = RandomizedSearchCV(
+                cfg["model"],
+                cfg["params"],
+                n_iter=min(20, grid_size),
+                cv=3,
+                scoring="r2",
+                n_jobs=-1,
+                random_state=42,
+            )
+            search.fit(X_train, y_train)
+            best = search.best_estimator_
+
+            train_r2 = r2_score(y_train, best.predict(X_train))
+            test_r2 = r2_score(y_test, best.predict(X_test))
+
+            report[name] = test_r2
+            fitted[name] = (best, search.best_params_)
+
+            logging.info(f"{name} done. Train R2: {train_r2:.4f}, Test R2: {test_r2:.4f}")
+
+        return report, fitted
+
+    except Exception as e:
+        raise CustomException(e, sys)
 
 
-
-    except Exception as ex:
-        raise CustomException(ex)
-    
 def save_object(file_path, obj):
     try:
         dir_path = os.path.dirname(file_path)
-
         os.makedirs(dir_path, exist_ok=True)
 
         with open(file_path, "wb") as file_obj:
@@ -52,33 +56,9 @@ def save_object(file_path, obj):
     except Exception as e:
         raise CustomException(e, sys)
 
-def evaluate_models(X_train, y_train,X_test,y_test,models,param):
+def load_object(file_path):
     try:
-        report = {}
-
-        for i in range(len(list(models))):
-            model = list(models.values())[i]
-            para=param[list(models.keys())[i]]
-
-            gs = GridSearchCV(model,para,cv=3)
-            gs.fit(X_train,y_train)
-
-            model.set_params(**gs.best_params_)
-            model.fit(X_train,y_train)
-
-            #model.fit(X_train, y_train)  # Train model
-
-            y_train_pred = model.predict(X_train)
-
-            y_test_pred = model.predict(X_test)
-
-            train_model_score = r2_score(y_train, y_train_pred)
-
-            test_model_score = r2_score(y_test, y_test_pred)
-
-            report[list(models.keys())[i]] = test_model_score
-
-        return report
-
+        with open(file_path, "rb") as file_obj:
+            return pickle.load(file_obj)
     except Exception as e:
         raise CustomException(e, sys)

@@ -28,3 +28,8 @@ dist/
 # IDE files
 .vscode/
 .idea/
+
+mlflow.db
+mlruns/
+mlartifacts/
+check_data*.py
