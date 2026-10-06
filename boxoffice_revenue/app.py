@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI, Form, Request          # FastAPI = the app itself; Form = read HTML form fields; Request = the raw incoming request
 from fastapi.responses import HTMLResponse          # tells FastAPI a route returns an HTML page, not JSON
 from fastapi.templating import Jinja2Templates      # renders HTML files that contain {{ placeholders }}
