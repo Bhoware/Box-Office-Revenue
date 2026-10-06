@@ -1,8 +1,12 @@
-"""Tests for `boxoffice_revenue` package."""
+from boxoffice_revenue.pipeline.prediction_pipeline import CustomData, PredictPipeline
 
-import boxoffice_revenue
-
-
-def test_import():
-    """Verify the package can be imported."""
-    assert boxoffice_revenue.__name__ == "boxoffice_revenue"
+data = CustomData(
+    title="Inception",
+    distributor="Warner Bros.",
+    MPAA="PG-13",
+    genres="Drama",
+    budget=160000000,
+    opening_theaters=3500,
+    release_days=60,
+)
+print(PredictPipeline().predict(data.get_data_as_dataframe()))

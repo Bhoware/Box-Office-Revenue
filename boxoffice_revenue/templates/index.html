@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Box Office Revenue Predictor</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 6px;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 8px 16px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Domestic Revenue Predictor</h2>
+  <form method="post">
+    <label>Title <input name="title" required></label>
+    <label>Genre <input name="genres" placeholder="Action, Drama, Comedy..." required></label>
+    <label>Distributor
+      <select name="distributor">
+        <option>Warner Bros.</option>
+        <option>Disney</option>
+        <option>Sony</option>
+        <option>Universal</option>
+        <option>Paramount</option>
+      </select>
+    </label>
+    <label>MPAA rating
+      <select name="MPAA">
+        <option>G</option>
+        <option>PG</option>
+        <option>PG-13</option>
+        <option>R</option>
+        <option>NC-17</option>
+      </select>
+    </label>
+    <label>Budget ($) <input name="budget" type="number" required></label>
+    <label>Opening theaters <input name="opening_theaters" type="number" required></label>
+    <label>Release days <input name="release_days" type="number" required></label>
+    <button type="submit">Predict</button>
+  </form>
+  {% if result %}<div class="result">Predicted domestic revenue: {{ result }}</div>{% endif %}
+</body>
+
+</html>
