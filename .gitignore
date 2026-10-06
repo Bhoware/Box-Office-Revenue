@@ -29,7 +29,12 @@ dist/
 .vscode/
 .idea/
 
+venv/
+.env
+logs/
+__pycache__/
 mlflow.db
 mlruns/
 mlartifacts/
+artifacts/
 check_data*.py

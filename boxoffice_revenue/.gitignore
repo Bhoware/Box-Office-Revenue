@@ -52,3 +52,12 @@ site/
 # IDE files
 # .idea/
 # .vscode/
+venv/
+.env
+logs/
+__pycache__/
+mlflow.db
+mlruns/
+mlartifacts/
+artifacts/
+check_data*.py
