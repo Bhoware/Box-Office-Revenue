@@ -24,8 +24,8 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         try:
-            numerical_col=['budget','opening_theaters','release_days']
-            categorical_col=['genres','title','distributor','MPAA']
+            numerical_col = ['budget', 'runtime', 'release_month']
+            categorical_col = ['genre', 'language', 'company']
             num_pipeline=Pipeline(
                 steps=[
                     ('imputer',SimpleImputer(strategy='median')),
@@ -36,9 +36,7 @@ class DataTransformation:
             cat_pipeline=Pipeline(
                 steps=[
                     ('imputer',SimpleImputer(strategy='most_frequent')),
-                    ('onehot',OneHotEncoder(handle_unknown='ignore')),
-                    ('scaler',StandardScaler(with_mean=False))
-
+                    ('onehot',OneHotEncoder(handle_unknown='ignore'))
                 ]
             )
             logging.info(f'numerical_column:{numerical_col}')
@@ -61,8 +59,8 @@ class DataTransformation:
             logging.info("Obtaining preprocessing object")
 
             preprocessor=self.get_data_transformer_object()
-            target_column='domestic_revenue'
-            numerical_col=['budget','opening_theaters','release_days']
+            target_column = 'revenue'
+            numerical_col=['budget','runtime','release_month']
             input_feature_train_df=train_df.drop(columns=[target_column])
             target_feature_train_df=train_df[target_column]
 
@@ -95,4 +93,4 @@ class DataTransformation:
             )
 
         except Exception as e:
-            raise CustomException(e,sys)
+            raise CustomException(e,sys)

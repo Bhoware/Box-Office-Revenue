@@ -1,0 +1,9 @@
+{
+  "holdout_r2": -0.29261529445648193,
+  "holdout_mae_usd": 82119760.0,
+  "baseline_mae_usd": 82194100.3828991,
+  "train_mae_usd": 71595432.0,
+  "cv_r2_mean": -0.2348529577255249,
+  "pred_std_usd": 21406428.0,
+  "true_std_usd": 85717138.80843312
+}

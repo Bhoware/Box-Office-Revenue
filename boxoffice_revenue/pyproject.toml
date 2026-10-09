@@ -55,6 +55,12 @@ homepage = "https://github.com/Bhoware/boxoffice_revenue"
 [project.scripts]
 boxoffice_revenue = "boxoffice_revenue.cli:app"
 
+[tool.pyrefly]
+search-path = ["src", "."]
+
+[tool.pyright]
+extraPaths = ["src", "."]
+
 [tool.ty]
 # All rules are enabled as "error" by default; no need to specify unless overriding.
 # Example override: relax a rule for the entire project (uncomment if needed).

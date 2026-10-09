@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en">
 
@@ -228,70 +227,104 @@
       <div class="header">
         <div class="icon">🎬</div>
 
-        <h2>Domestic Revenue Predictor</h2>
+        <h2>Box Office Revenue Predictor</h2>
 
         <p class="subtitle">
-          Enter movie details to estimate its domestic box office revenue.
+          Enter movie details to estimate its worldwide box office revenue.
         </p>
       </div>
 
       <form method="post">
 
-        <div class="field">
-          <label>Movie Title</label>
-          <input name="title" placeholder="Enter movie title" required>
-        </div>
-
-        <div class="field">
-          <label>Genre</label>
-          <input name="genres" placeholder="Action, Drama, Comedy..." required>
-        </div>
-
         <div class="row">
 
           <div class="field">
-            <label>Distributor</label>
-
-            <select name="distributor">
-              <option>Warner Bros.</option>
-              <option>Disney</option>
-              <option>Sony</option>
-              <option>Universal</option>
-              <option>Paramount</option>
+            <label>Genre</label>
+            <select name="genre">
+              <option>Action</option>
+              <option>Adventure</option>
+              <option>Animation</option>
+              <option>Comedy</option>
+              <option>Crime</option>
+              <option>Documentary</option>
+              <option>Drama</option>
+              <option>Family</option>
+              <option>Fantasy</option>
+              <option>History</option>
+              <option>Horror</option>
+              <option>Music</option>
+              <option>Mystery</option>
+              <option>Romance</option>
+              <option>Science Fiction</option>
+              <option>Thriller</option>
+              <option>War</option>
+              <option>Western</option>
             </select>
           </div>
 
           <div class="field">
-            <label>MPAA Rating</label>
-
-            <select name="MPAA">
-              <option>G</option>
-              <option>PG</option>
-              <option>PG-13</option>
-              <option>R</option>
-              <option>NC-17</option>
+            <label>Original Language</label>
+            <select name="language">
+              <option value="en">English</option>
+              <option value="fr">French</option>
+              <option value="es">Spanish</option>
+              <option value="de">German</option>
+              <option value="ja">Japanese</option>
+              <option value="hi">Hindi</option>
+              <option value="zh">Chinese</option>
+              <option value="ko">Korean</option>
+              <option value="it">Italian</option>
+              <option value="ru">Russian</option>
             </select>
           </div>
 
+        </div>
+
+        <div class="field">
+          <label>Production Company</label>
+          <select name="company">
+            <option>Universal Pictures</option>
+            <option>Paramount Pictures</option>
+            <option>Columbia Pictures</option>
+            <option>Warner Bros.</option>
+            <option>Twentieth Century Fox Film Corporation</option>
+            <option>New Line Cinema</option>
+            <option>Walt Disney Pictures</option>
+            <option>Metro-Goldwyn-Mayer (MGM)</option>
+            <option selected>Other</option>
+          </select>
         </div>
 
         <div class="row">
 
           <div class="field">
             <label>Budget ($)</label>
-            <input name="budget" type="number" placeholder="e.g. 150000000" required>
+            <input name="budget" type="number" min="0" placeholder="e.g. 150000000" required>
           </div>
 
           <div class="field">
-            <label>Opening Theaters</label>
-            <input name="opening_theaters" type="number" placeholder="e.g. 3500" required>
+            <label>Runtime (minutes)</label>
+            <input name="runtime" type="number" min="1" placeholder="e.g. 120" required>
           </div>
 
         </div>
 
         <div class="field">
-          <label>Release Days</label>
-          <input name="release_days" type="number" placeholder="e.g. 90" required>
+          <label>Release Month</label>
+          <select name="release_month">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
         </div>
 
         <button type="submit">
@@ -302,7 +335,7 @@
 
       {% if result %}
       <div class="result">
-        Predicted domestic revenue: {{ result }}
+        Predicted worldwide revenue: {{ result }}
       </div>
       {% endif %}
 
@@ -317,4 +350,3 @@
 </body>
 
 </html>
-```
