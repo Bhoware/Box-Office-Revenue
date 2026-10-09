@@ -23,7 +23,9 @@ jobs:
           cache-dependency-path: boxoffice_revenue/requirements.txt
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r boxoffice_revenue/requirements.txt
+          pip install httpx2
 
       - name: App imports and loads the model
         run: python -c "import app"
